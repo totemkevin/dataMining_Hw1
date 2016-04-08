@@ -1,13 +1,14 @@
 
 public class NodeChr {
 	private int[] chr;
-	private int lengthOfChr;
+	private int lengthOfChr=8;
 	private int adapter;
 	
-	public void setChr(int[] chr)
+	public void setChr(int[] input)
 	{
-		this.chr=chr;
 		lengthOfChr=chr.length;
+		chr=new int[lengthOfChr];
+		chr=input;
 	}
 	public void setAdapter()
 	{
@@ -26,6 +27,17 @@ public class NodeChr {
 	public int getAdapter()
 	{
 		return adapter;
+	}
+	
+	public String toString()
+	{
+		String tmp="[";
+		for(int i=0;i<lengthOfChr;i++)
+		{
+			tmp+=chr[i]+",";
+		}
+		tmp+="]";
+		return tmp;
 	}
 	
 }
