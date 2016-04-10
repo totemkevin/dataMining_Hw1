@@ -20,7 +20,7 @@ public class NodeChr {
 			i++;
 		}
 	}
-	public void setAdapter()
+	public void setAdapter(int adapter)
 	{
 		this.adapter=adapter;
 	}
@@ -44,7 +44,10 @@ public class NodeChr {
 		String tmp="[";
 		for(int i=0;i<lengthOfChr;i++)
 		{
-			tmp+=chr[i]+",";
+			if(i==0)
+				tmp+=chr[i];
+			else
+				tmp+=","+chr[i];
 		}
 		tmp+="]";
 		return tmp;
