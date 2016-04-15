@@ -50,9 +50,8 @@ public class gaAlg {
 				toNum+= chrData[j]*Math.pow(2, (7-j));
 			}
 			
-			
-			//System.out.print(toNum+"\n");
 			int adapter=equation(toNum);//引入方程式
+			//System.out.print(toNum+"\n");
 			//System.out.print(adapter+"\n");
 			
 			currentChrArray[i].setAdapter(adapter);//存進Node
