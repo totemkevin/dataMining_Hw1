@@ -4,8 +4,9 @@ public class gaAlg {
 	private static int lengthOfChr=8;
 	private static int[] gaDataArray={0,1};
 	
-	public static NodeChr[] currentChrArray;
-	public NodeChr[] nextChrArray;
+	public static NodeChr[] currentChrArray;	
+	public NodeChr[] greatChrArray;
+	public static NodeChr[] selectedChrArray;
 
 	
 	public static void createRandomGeneration(int numOfChr)
@@ -38,7 +39,7 @@ public class gaAlg {
 		return output;
 	}
 	
-	public static void countAdapterFunction()
+	public static void adapterFunction()
 	{
 		for(int i=0;i<currentChrArray.length;i++)
 		{
@@ -74,14 +75,69 @@ public class gaAlg {
 		
 		return c;
 	}
+	
+	public static void Selection()//選出優秀基因
+	{
+		int[] adapterArray=new int[currentChrArray.length];
+		for(int i=0;i<currentChrArray.length;i++)
+		{
+			adapterArray[i]=currentChrArray[i].getAdapter();
+			//System.out.print(currentChrArray[i].getAdapter()+"\n");
+		}//取出適應函數
+		
+		int total=0;
+		for(int a:adapterArray)
+		{
+			total+=a;
+		}//計算加總
+		//System.out.print(total);
+		
+		for(int a:adapterArray)
+		{
+			int i=0;
+			adapterArray[i]=total-a;
+			i++;
+		}//函數值調整
+		
+		selectedChrArray=new NodeChr[currentChrArray.length/2];
+		int numOfChrSelect=currentChrArray.length/2;
+		int i=0;
+		
+		while(i<numOfChrSelect)//選出基因各數
+		{
+			int rendomNum=(int) (Math.random()*(total+1));//隨機值
+			//System.out.print("selectNum: "+rendomNum+"\n");
+			int selectPoint=0;//當前選擇的位子
+			
+			for(int j=0;j<adapterArray.length;j++)
+			{
+				selectPoint+=adapterArray[j];//將adapterArray中的值取出 ，加到selectPoint上
+				if(selectPoint>=rendomNum)//如果selectPoint值>隨機數，代表當前區域被選重
+				{
+					selectedChrArray[i]=currentChrArray[j];//取出資料
+					break;
+				}
+				
+			}
+			
+			i++;
+		}
+		
+	}
 	public static void main(String[] arg)
 	{
-		createRandomGeneration(4);
-		for(int i=0;i<4;i++)
+		createRandomGeneration(10);
+		for(int i=0;i<10;i++)
 		{
 			System.out.print(currentChrArray[i].toString()+"\n");
 		}
 		
-		countAdapterFunction();
+		adapterFunction();
+		Selection();
+		System.out.print("=====================\n");
+		for(int i=0;i<5;i++)
+		{
+			System.out.print(selectedChrArray[i].toString()+"\n");
+		}
 	}
 }
