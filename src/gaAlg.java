@@ -1,12 +1,15 @@
 
 public class gaAlg {
 
-	private static int lengthOfChr=8;
+	private static int lengthOfChr=4;
 	private static int[] gaDataArray={0,1};
 	
 	public static NodeChr[] currentChrArray;	
-	public NodeChr[] greatChrArray;
 	public static NodeChr[] selectedChrArray;
+	public static NodeChr[] nextChrArray;
+	public static int[] ansArray=new int[2]; 
+	public static int[] minArray=new int[2]; 
+
 
 	
 	public static void createRandomGeneration(int numOfChr)
@@ -23,7 +26,8 @@ public class gaAlg {
 			currentChrArray[i]=tmpGa;
 		}
 	}
-	private static NodeChr createRandomChr()
+	
+private static NodeChr createRandomChr()
 	{
 		/*
 		 * createRandomGeneration的副程式
@@ -43,13 +47,7 @@ public class gaAlg {
 	{
 		for(int i=0;i<currentChrArray.length;i++)
 		{
-			int[] chrData=currentChrArray[i].getChr();
-			
-			int toNum=0;
-			for(int j=0;j<chrData.length;j++)//二進轉十進
-			{
-				toNum+= chrData[j]*Math.pow(2, (7-j));
-			}
+			int toNum=currentChrArray[i].toDecimal();//二進轉十進
 			
 			int adapter=equation(toNum);//引入方程式
 			//System.out.print(toNum+"\n");
@@ -99,8 +97,8 @@ public class gaAlg {
 			i++;
 		}//函數值調整
 		
-		selectedChrArray=new NodeChr[currentChrArray.length/2];
-		int numOfChrSelect=currentChrArray.length/2;
+		selectedChrArray=new NodeChr[currentChrArray.length];
+		int numOfChrSelect=currentChrArray.length;
 		int i=0;
 		
 		while(i<numOfChrSelect)//選出基因各數
@@ -124,20 +122,114 @@ public class gaAlg {
 		}
 		
 	}
-	public static void main(String[] arg)
-	{
-		createRandomGeneration(10);
-		for(int i=0;i<10;i++)
+	
+	public static void exchange(){
+		nextChrArray=new NodeChr[selectedChrArray.length*selectedChrArray.length];
+		for(int i=0;i<selectedChrArray.length;i++)
 		{
-			System.out.print(currentChrArray[i].toString()+"\n");
+			selectedChrArray[i].cutHalf();
 		}
-		
-		adapterFunction();
-		Selection();
-		System.out.print("=====================\n");
-		for(int i=0;i<5;i++)
+		int k=0;
+		int[] tmp;
+		NodeChr tmpNode;
+		for(int i=0;i<selectedChrArray.length;i++)
 		{
-			System.out.print(selectedChrArray[i].toString()+"\n");
+			for(int j=0;j<selectedChrArray.length;j++)
+			{
+				tmp=merge(selectedChrArray[i].headHalf,selectedChrArray[j].tailHalf);
+				//System.out.print(k);
+				tmpNode=new NodeChr();
+				tmpNode.setChr(tmp);
+				nextChrArray[k]=tmpNode;
+				k++;
+			}
 		}
 	}
+	
+	public static int[] merge(int[] h,int[] t)
+	{
+		int tmplength=h.length+t.length;
+		int[] output=new int[tmplength];
+		
+		for(int i=0;i<tmplength;i++)
+		{
+			if(i<h.length)
+				output[i]=h[i];
+			else
+				output[i]=t[i-h.length];
+		}
+		/*for(int i=0;i<output.length;i++)
+		{
+			System.out.print(output[i]);
+		}test*/
+		return output;
+	}
+	
+	public static boolean endRule()
+	{
+		currentChrArray=null;
+		currentChrArray=new NodeChr[nextChrArray.length];
+		for(int i=0;i<nextChrArray.length;i++)
+		{
+			currentChrArray[i]=nextChrArray[i];
+		}
+		nextChrArray=null;
+		
+		adapterFunction();
+		
+		for(int i=0;i<currentChrArray.length;i++)
+		{
+			int adapt=currentChrArray[i].getAdapter();
+			int tmpAns=currentChrArray[i].toDecimal();
+			
+			if(adapt==0)
+			{
+				if(ansArray[0]==0)
+				{
+					ansArray[0]=tmpAns;
+				}
+				else if(ansArray[0]!=0 && tmpAns!=ansArray[0])
+				{
+					ansArray[1]=tmpAns;
+				}
+			}
+		}
+		boolean bool=false;
+		if(ansArray[1]!=0)
+		{
+			bool=true;
+		}
+		return bool;
+	}
+	
+	public static void min()
+	{
+		int min1=currentChrArray[0].getAdapter();
+		int min2=currentChrArray[1].getAdapter();
+		
+		for(int i=0;i<currentChrArray.length;i++)
+		{
+			int adapt=currentChrArray[i].getAdapter();
+			
+			if(adapt<min1)
+			{
+				min1=adapt;
+				if(min1<min2)
+				{
+					min2=min1;
+				}
+			}
+			else
+			{
+				if(adapt<min2)
+				{
+					min2=adapt;
+				}
+			}
+		}
+		
+		minArray[0]=min1;
+		minArray[1]=min2;
+	}
+	
 }
