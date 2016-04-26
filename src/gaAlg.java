@@ -7,10 +7,22 @@ public class gaAlg {
 	public static NodeChr[] currentChrArray;	
 	public static NodeChr[] selectedChrArray;
 	public static NodeChr[] nextChrArray;
-	public static int[] ansArray=new int[2]; 
-	public static int[] minArray=new int[2]; 
+	
+	public static int ans=0; 
+	public static int min=0; 
+	public static int inputNum=0;
 
 
+	public static void init()
+	{
+		currentChrArray=null;	
+		selectedChrArray=null;
+		nextChrArray=null;
+		
+		ans=0; 
+		min=0; 
+		inputNum=0;
+	}
 	
 	public static void createRandomGeneration(int numOfChr)
 	{
@@ -65,13 +77,17 @@ private static NodeChr createRandomChr()
 		 * 計算一元二次方程式
 		 * x為輸入值
 		 * c為輸出值
-		 *  x^2-5x+6
+		 *  (x-a)^2
 		 *  
 		 */
 		int c=0;
-		c=(int) Math.pow(x, 2)-5*x+6;
+		c=(int) Math.pow((x-inputNum), 2);
 		
 		return c;
+	}
+	public static void setInputNum(int num)
+	{
+		inputNum=num;
 	}
 	
 	public static void Selection()//選出優秀基因
@@ -184,18 +200,18 @@ private static NodeChr createRandomChr()
 			
 			if(adapt==0)
 			{
-				if(ansArray[0]==0)
+				if(ans==0)
 				{
-					ansArray[0]=tmpAns;
+					ans=tmpAns;
 				}
-				else if(ansArray[0]!=0 && tmpAns!=ansArray[0])
+				else if(ans!=0 && tmpAns!=ans)
 				{
-					ansArray[1]=tmpAns;
+					ans=tmpAns;
 				}
 			}
 		}
 		boolean bool=false;
-		if(ansArray[1]!=0)
+		if(ans!=0)
 		{
 			bool=true;
 		}
@@ -205,7 +221,6 @@ private static NodeChr createRandomChr()
 	public static void min()
 	{
 		int min1=currentChrArray[0].getAdapter();
-		int min2=currentChrArray[1].getAdapter();
 		
 		for(int i=0;i<currentChrArray.length;i++)
 		{
@@ -214,22 +229,12 @@ private static NodeChr createRandomChr()
 			if(adapt<min1)
 			{
 				min1=adapt;
-				if(min1<min2)
-				{
-					min2=min1;
-				}
 			}
-			else
-			{
-				if(adapt<min2)
-				{
-					min2=adapt;
-				}
-			}
+			
 		}
 		
-		minArray[0]=min1;
-		minArray[1]=min2;
+		min=min1;
+		
 	}
 	
 }
