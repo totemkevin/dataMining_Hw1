@@ -203,8 +203,9 @@ public class GuiDemo extends JFrame {
 					
 					txtUtl.writerTxt("=====[nextChrArray]=====\r\n");
 					
-					gaAlg.exchange();
 					gaAlg.Mutation();
+					gaAlg.exchange();
+					
 					
 					for(int i=0;i<gaAlg.nextChrArray.length;i++)
 					{
@@ -227,10 +228,13 @@ public class GuiDemo extends JFrame {
 					
 					gaAlg.min();
 					txtUtl.writerTxt("min adapt : "+gaAlg.min+"\r\n");
-					SDstr+="min count result : "+gaAlg.min+"\n \n";
+					SDstr+="min count result : "+gaAlg.min+"\n";
+					
+					txtUtl.writerTxt("avg : "+gaAlg.avg+"\r\n");
+					SDstr+="avg : "+gaAlg.avg+"\n \n";
 					
 					countG++;
-				}while(countG<maxG & !endBool);	
+				}while(countG<maxG);	//while(countG<maxG & !endBool);	
 				textArea_1.setText(SDstr);
 			}
 			

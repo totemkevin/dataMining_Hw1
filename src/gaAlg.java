@@ -11,6 +11,7 @@ public class gaAlg {
 	public static int ans=0; 
 	public static int min=0; 
 	public static int inputNum=0;
+	public static int avg;
 
 
 	public static void init()
@@ -105,6 +106,7 @@ private static NodeChr createRandomChr()
 			total+=a;
 		}//­pºâ¥[Á`
 		//System.out.print(total);
+		avg=total/adapterArray.length;
 		
 		for(int a:adapterArray)
 		{
@@ -186,7 +188,7 @@ private static NodeChr createRandomChr()
 	public static void Mutation()
 	{
 		NodeChr mutation=createRandomChr();
-		nextChrArray[0]=mutation;
+		selectedChrArray[0]=mutation;
 	}
 	
 	public static boolean endRule()
