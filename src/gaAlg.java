@@ -113,8 +113,10 @@ private static NodeChr createRandomChr()
 			i++;
 		}//函數值調整
 		
-		selectedChrArray=new NodeChr[currentChrArray.length];
-		int numOfChrSelect=currentChrArray.length;
+		int numOfChrSelect=8;
+		
+		selectedChrArray=new NodeChr[numOfChrSelect];
+		
 		int i=0;
 		
 		while(i<numOfChrSelect)//選出基因各數

@@ -57,6 +57,7 @@ public class GuiDemo extends JFrame {
 		contentPane.setLayout(null);
 		
 		final JButton startGaAlg = new JButton("Start");
+		startGaAlg.setEnabled(false);
 		
 		
 		final JButton createChr = new JButton("Create");
@@ -157,6 +158,7 @@ public class GuiDemo extends JFrame {
 		createChr.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				createChr.setEnabled(false);
+				startGaAlg.setEnabled(true);
 				int numberOfG = 0;
 				try{
 					int num=Integer.parseInt(textField.getText());
@@ -181,6 +183,7 @@ public class GuiDemo extends JFrame {
 		startGaAlg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startGaAlg.setEnabled(false);
+				
 				int num=Integer.valueOf(textField_2.getText());
 				gaAlg.setInputNum(num);
 				
@@ -239,7 +242,7 @@ public class GuiDemo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				createChr.setEnabled(true);
-				startGaAlg.setEnabled(true);
+				startGaAlg.setEnabled(false);
 				btnNewButton_2.setEnabled(true);
 				
 				gaAlg.init();

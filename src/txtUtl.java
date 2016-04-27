@@ -25,7 +25,7 @@ public class txtUtl {
 
 		try {
 
-			File file = new File("bin/GA.txt");
+			File file = new File("C:/GAtest/GA.txt");
 
 			fw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true), "UTF-8")); // 指點編碼格式，以免讀取時中文字符異常
 
@@ -63,10 +63,9 @@ public class txtUtl {
 
 	public static String readTxt() {
 
-		String filePath = txtUtl.class.getResource("").getPath().replace("file:", "")
-
-				+ "/GA.txt"; // 文件和該類在同個目錄下
-
+		//String filePath = txtUtl.class.getResource("").getPath().replace("file:", "")	+ "/GA.txt"; // 文件和該類在同個目錄下
+		String filePath ="C:/GAtest/GA.txt";
+		
 		BufferedReader reader = null;
 		String output = "";
 		try {
@@ -108,7 +107,7 @@ public class txtUtl {
 	public static void clean()
 	{
 		try{
-			File file = new File("bin/GA.txt");//这里是你txt的路径，记得路径下一级用“\\"实现
+			File file = new File("C:/GAtest/GA.txt");//这里是你txt的路径，记得路径下一级用“\\"实现
 			FileWriter fileWriter = new FileWriter(file);
 			BufferedWriter bw1 = new BufferedWriter(fileWriter);
 			bw1.write("");
