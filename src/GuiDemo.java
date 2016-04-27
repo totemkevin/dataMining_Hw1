@@ -50,7 +50,7 @@ public class GuiDemo extends JFrame {
 	 */
 	public GuiDemo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1067, 476);
+		setBounds(100, 100, 529, 476);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -99,18 +99,14 @@ public class GuiDemo extends JFrame {
 		scrollPane_1.setViewportView(textArea);
 		textArea.setEditable(false);
 		textArea.setBorder(new EmptyBorder(5, 5, 5, 5));
-		textArea.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(327, 28, 150, 400);
+		scrollPane.setBounds(327, 28, 176, 400);
 		contentPane.add(scrollPane);
 		
 		textArea_1 = new JTextArea();
+		textArea_1.setBorder(new EmptyBorder(5, 5, 5, 5));
 		scrollPane.setViewportView(textArea_1);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(505, 28, 536, 400);
-		contentPane.add(panel);
 		
 		textField_2 = new JTextField();
 		textField_2.setText("8");
@@ -197,6 +193,7 @@ public class GuiDemo extends JFrame {
 					gaAlg.Selection();
 					
 					txtUtl.writerTxt("=====[Generation "+(countG+1)+"]=====\r\n");
+					SDstr+="=====[Generation "+(countG+1)+"]=====\n";
 					txtUtl.writerTxt("=====[selected]=====\r\n");
 					for(int i=0;i<gaAlg.selectedChrArray.length;i++)
 					{
@@ -205,20 +202,32 @@ public class GuiDemo extends JFrame {
 					
 					
 					txtUtl.writerTxt("=====[nextChrArray]=====\r\n");
+					
 					gaAlg.exchange();
+					gaAlg.Mutation();
+					
 					for(int i=0;i<gaAlg.nextChrArray.length;i++)
 					{
 						txtUtl.writerTxt(i+" : "+gaAlg.nextChrArray[i].toString()+"\r\n");
 					}
 					
 					endBool=gaAlg.endRule();
+					String ansStr="";
+					if(gaAlg.ans==0)
+					{
+						ansStr="False";
+					}
+					else
+					{
+						ansStr=gaAlg.ans+"";
+					}
 					
-					txtUtl.writerTxt("ans : "+gaAlg.ans+"\r\n");
-					SDstr+="ans : "+gaAlg.ans+"\n";
+					txtUtl.writerTxt("ans : "+ansStr+"\r\n");
+					SDstr+="ans : "+ansStr+"\n";
 					
 					gaAlg.min();
 					txtUtl.writerTxt("min adapt : "+gaAlg.min+"\r\n");
-					SDstr+="min adapt : "+gaAlg.min+"\n";
+					SDstr+="min count result : "+gaAlg.min+"\n \n";
 					
 					countG++;
 				}while(countG<maxG & !endBool);	

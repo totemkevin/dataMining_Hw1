@@ -183,6 +183,12 @@ private static NodeChr createRandomChr()
 		return output;
 	}
 	
+	public static void Mutation()
+	{
+		NodeChr mutation=createRandomChr();
+		nextChrArray[0]=mutation;
+	}
+	
 	public static boolean endRule()
 	{
 		currentChrArray=null;
